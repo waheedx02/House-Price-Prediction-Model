@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# CatBoost
+catboost_info/
+
+# Data
+data/raw/
+
+# OS
+.DS_Store
+Thumbs.db
