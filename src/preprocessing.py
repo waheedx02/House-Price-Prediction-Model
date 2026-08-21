@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-
 FEATURE_ORDER = [
     "bedrooms",
     "bathrooms",
@@ -28,7 +27,6 @@ FEATURE_ORDER = [
     "years_since_renovation",
     "total_sqft",
 ]
-
 
 def create_features(data: pd.DataFrame) -> pd.DataFrame:
     """
