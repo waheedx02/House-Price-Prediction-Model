@@ -76,9 +76,7 @@ with st.sidebar:
     st.markdown(
         """
 This app predicts King County home sale prices using a trained
-**CatBoostRegressor** model. Your input is processed by the same
-`preprocessing.py` pipeline used during training, then passed to the
-model via `predict_price()`.
+**CatBoostRegressor** model.
 """
     )
 
@@ -157,7 +155,7 @@ if submitted:
     # Raw, unengineered input using the original dataset's column names.
     # `predict_price()` is expected to run this through preprocessing.py
     # itself — see the module docstring for the assumption this makes.
-    raw_input = pd.DataFrame([{
+    raw_input = {
         "id": 0,  # placeholder — preprocessing.py drops this column before modeling
         "date": pd.to_datetime(sale_date),
         "bedrooms": bedrooms,
@@ -178,7 +176,7 @@ if submitted:
         "long": long_,
         "sqft_living15": sqft_living15,
         "sqft_lot15": sqft_lot15,
-    }])
+    }
 
     try:
         prediction = predict_price(raw_input)
