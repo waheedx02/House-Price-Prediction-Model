@@ -1,13 +1,6 @@
-# ---------------------------------------------------------
-# Application imports
-# ---------------------------------------------------------
-
-import streamlit as st
 import sys
 
 from pathlib import Path
-from datetime import date
-from src.predict import predict_price
 
 # ---------------------------------------------------------
 # Project path
@@ -17,6 +10,16 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
+
+# ---------------------------------------------------------
+# Application imports
+# ---------------------------------------------------------
+
+import streamlit as st
+import pandas as pd
+
+from datetime import date
+from src.predict import predict_price
 
 # ---------------------------------------------------------
 # Global Styling
@@ -56,6 +59,75 @@ st.markdown(
             font-size: 1.05rem;
             opacity: 0.75;
         }
+        .section-spacing {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-divider {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border: none;
+            border-top: 1px solid rgba(128, 128, 128, 0.25);
+        }
+        .predict-button {
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .prediction-card {
+            padding: 2rem;
+            border-radius: 18px;
+            background: rgba(128, 128, 128, 0.08);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .prediction-label {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-bottom: 0.4rem;
+        }
+
+        .prediction-price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .prediction-range {
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        .result-section {
+            margin-top: 2rem;
+        }
+        div.stButton > button,
+        div[data-testid="stFormSubmitButton"] > button {
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            min-height: 3rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        div.stButton > button:hover,
+        div[data-testid="stFormSubmitButton"] > button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+        }
     </style>
     """,
     unsafe_allow_html=True,
@@ -71,6 +143,13 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+
+# ---------------------------------------------------------
+# Global Constants
+# ---------------------------------------------------------
+
+MODEL_MAE = 63144.44
 
 # ---------------------------------------------------------
 # Sidebar
@@ -120,26 +199,6 @@ with st.sidebar:
 
     st.divider()
 
-    # Feature engineering
-    st.subheader("🧠 Feature Engineering")
-
-    st.markdown(
-        """
-        The model uses engineered features including:
-
-        - **House age**
-        - **Living-to-lot ratio**
-        - **Living area per bedroom**
-        - **Years since renovation**
-        - **Total square footage**
-
-        These are calculated automatically from the
-        property information entered below.
-        """
-    )
-
-    st.divider()
-
     # Technical information
     st.subheader("🔧 Tech Stack")
 
@@ -175,37 +234,6 @@ st.markdown(
 )
 
 # ---------------------------------------------------------
-# Quick model summary
-# ---------------------------------------------------------
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.metric(
-        "Model",
-        "CatBoost",
-    )
-
-with col2:
-    st.metric(
-        "R² Score",
-        "0.9121",
-    )
-
-with col3:
-    st.metric(
-        "Test MAE",
-        "$63.1K",
-    )
-
-st.markdown(
-    """
-    <div style="height: 0.8rem;"></div>
-    """,
-    unsafe_allow_html=True,
-)
-
-# ---------------------------------------------------------
 # Property Details
 # ---------------------------------------------------------
 
@@ -217,6 +245,9 @@ st.caption(
 )
 
 with st.form("house_form"):
+
+    st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
+
     # -----------------------------------------------------
     # Basic Information
     # -----------------------------------------------------
@@ -268,6 +299,8 @@ with st.form("house_form"):
             value=0,
             help="0 = No view · 4 = Excellent view",
         )
+
+    st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
 
     # -----------------------------------------------------
     # Property Size
@@ -338,6 +371,8 @@ with st.form("house_form"):
             help="Average lot size of the 15 nearest houses.",
         )
 
+    st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
+
     # -----------------------------------------------------
     # Quality & Condition
     # -----------------------------------------------------
@@ -363,6 +398,8 @@ with st.form("house_form"):
             value=7,
             help="1–3 = Low quality · 7 = Average · 11–13 = High-end",
         )
+
+    st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
 
     # -----------------------------------------------------
     # Location & Sale Information
@@ -428,9 +465,117 @@ with st.form("house_form"):
         help="The model uses the year of sale as a feature.",
     )
 
+    st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
     st.markdown("---")
 
     submitted = st.form_submit_button(
         "🔮 Predict House Price",
         use_container_width=True,
     )
+
+# ---------------------------------------------------------
+# Prediction
+# ---------------------------------------------------------
+
+if submitted:
+
+    raw_input = {
+        "id": 0,
+        "date": pd.to_datetime(sale_date),
+
+        "bedrooms": bedrooms,
+        "bathrooms": bathrooms,
+        "sqft_living": sqft_living,
+        "sqft_lot": sqft_lot,
+        "floors": floors,
+        "waterfront": 1 if waterfront == "Yes" else 0,
+        "view": view,
+        "condition": condition,
+        "grade": grade,
+
+        "sqft_above": sqft_above,
+        "sqft_basement": sqft_basement,
+
+        "yr_built": yr_built,
+        "yr_renovated": yr_renovated,
+
+        "zipcode": zipcode,
+        "lat": lat,
+        "long": long_,
+
+        "sqft_living15": sqft_living15,
+        "sqft_lot15": sqft_lot15,
+    }
+
+    try:
+        # -------------------------------------------------
+        # Generate Prediction
+        # -------------------------------------------------
+
+        with st.spinner("🏠 Analyzing property and generating prediction..."):
+            prediction = predict_price(raw_input)
+
+        # -------------------------------------------------
+        # Calculate Typical Prediction Range
+        # -------------------------------------------------
+
+        lower_bound = max(0, prediction - MODEL_MAE)
+        upper_bound = prediction + MODEL_MAE
+
+        # -------------------------------------------------
+        # Prediction Result
+        # -------------------------------------------------
+
+        st.markdown(
+            "<div class='result-section'></div>",
+            unsafe_allow_html=True,
+        )
+
+        st.markdown("## 💰 Prediction Result")
+
+        st.html(
+            f"""
+            <div class="prediction-card">
+                <div class="prediction-label">Estimated Sale Price</div>
+                <div class="prediction-price">${prediction:,.0f}</div>
+                <div class="prediction-range">
+                    Typical model range:
+                    <strong>${lower_bound:,.0f} – ${upper_bound:,.0f}</strong>
+                </div>
+            </div>
+            """
+        )
+
+        st.caption(
+            "The range is based on the model's validation MAE and represents "
+            "a typical prediction error, not a guaranteed price range."
+        )
+
+        # -------------------------------------------------
+        # Property Summary
+        # -------------------------------------------------
+
+        with st.expander("📋 View Property Summary"):
+
+            summary_col1, summary_col2, summary_col3 = st.columns(3)
+
+            with summary_col1:
+                st.metric("Bedrooms", bedrooms)
+                st.metric("Bathrooms", bathrooms)
+                st.metric("Living Area", f"{sqft_living:,} sqft")
+
+            with summary_col2:
+                st.metric("Lot Size", f"{sqft_lot:,} sqft")
+                st.metric("Year Built", yr_built)
+                st.metric("Grade", grade)
+
+            with summary_col3:
+                st.metric("Zip Code", zipcode)
+                st.metric("Condition", condition)
+                st.metric(
+                    "Waterfront",
+                    "Yes" if waterfront == "Yes" else "No",
+                )
+
+    except Exception as e:
+        st.error(f"Prediction failed: {e}")
