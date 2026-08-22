@@ -186,75 +186,230 @@ st.markdown(
             font-size: 0.7rem;
             line-height: 1.4;
         }
+
+        /* =========================================================
+        GLOBAL
+        ========================================================= */
+
+        .block-container {
+            max-width: 1100px;
+            padding-top: 2.5rem;
+            padding-bottom: 4rem;
+        }
+
+        /* =========================================================
+        HERO
+        ========================================================= */
+
         .hero {
-            padding: 1.8rem 2rem;
-            border-radius: 18px;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(
-                135deg,
-                rgba(15, 81, 50, 0.12),
-                rgba(20, 108, 67, 0.04)
-            );
-            border: 1px solid rgba(20, 108, 67, 0.18);
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
+            padding: 1.2rem 0 2rem 0;
         }
 
-        .hero-icon {
-            font-size: 3.2rem;
-            line-height: 1;
+        .hero-badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(25, 135, 84, 0.14);
+            border: 1px solid rgba(25, 135, 84, 0.30);
+            color: #75d5a4;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.9rem;
         }
 
-        .hero h1 {
+        .hero-title {
+            font-size: 3rem;
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.04em;
             margin: 0;
-            font-size: 2.4rem;
+        }
+
+        .hero-title span {
+            color: #5ee0a0;
+        }
+
+        .hero-subtitle {
+            max-width: 720px;
+            margin-top: 0.9rem;
+            color: #aeb6c2;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+            margin-top: 1.2rem;
+        }
+
+        .hero-meta-item {
+            padding: 0.45rem 0.75rem;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #b9c1cc;
+            font-size: 0.82rem;
+        }
+
+        /* =========================================================
+        FORM CONTAINER
+        ========================================================= */
+
+        .form-heading {
+            margin-top: 0.8rem;
+            margin-bottom: 0.3rem;
+            font-size: 1.55rem;
             font-weight: 750;
         }
 
-        .hero p {
-            margin: 0.35rem 0 0 0;
-            font-size: 1.05rem;
-            opacity: 0.75;
+        .form-description {
+            color: #929aa7;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
         }
 
-        .section-spacing {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+        /* =========================================================
+        EXPANDERS
+        ========================================================= */
+
+        div[data-testid="stExpander"] {
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 14px;
+            background: rgba(255,255,255,0.018);
+            margin-bottom: 0.85rem;
+            overflow: hidden;
         }
 
-        .section-divider {
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            border: none;
-            border-top: 1px solid rgba(128, 128, 128, 0.25);
+        div[data-testid="stExpander"] details summary {
+            padding: 1rem 1.1rem;
         }
+
+        div[data-testid="stExpander"] details summary p {
+            font-size: 0.98rem;
+            font-weight: 650;
+        }
+
+        div[data-testid="stExpander"] details[open] summary {
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.025);
+        }
+
+        /* =========================================================
+        INPUT AREA
+        ========================================================= */
+
+        div[data-testid="stNumberInput"],
+        div[data-testid="stSelectbox"],
+        div[data-testid="stSlider"],
+        div[data-testid="stRadio"],
+        div[data-testid="stDateInput"],
+        div[data-testid="stCheckbox"] {
+            margin-bottom: 0.55rem;
+        }
+
+        /* =========================================================
+        LABELS
+        ========================================================= */
+
+        label {
+            font-weight: 550 !important;
+        }
+
+        /* =========================================================
+        PREDICT BUTTON
+        ========================================================= */
 
         div.stButton > button,
         div[data-testid="stFormSubmitButton"] > button {
-            background:
-                radial-gradient(
-                    circle at 50% -20%,
-                    rgba(25, 135, 84, 0.22),
-                    transparent 55%
-                ),
-                linear-gradient(
-                    145deg,
-                    rgba(25, 135, 84, 0.13),
-                    rgba(20, 25, 32, 0.95)
-                );
-            color: white;
-            border: none;
+            min-height: 3.1rem;
             border-radius: 10px;
-            min-height: 3rem;
-            font-size: 1.05rem;
-            font-weight: 600;
+            border: 1px solid rgba(94,224,160,0.35);
+            background: linear-gradient(
+                135deg,
+                #198754 0%,
+                #157347 100%
+            );
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
             transition: all 0.2s ease;
         }
 
-        div.stButton > button:hover,
         div[data-testid="stFormSubmitButton"] > button:hover {
+            border-color: #5ee0a0;
+            box-shadow: 0 8px 25px rgba(25,135,84,0.25);
             transform: translateY(-1px);
+        }
+
+        /* =========================================================
+        SMALL HELP TEXT
+        ========================================================= */
+
+        .section-note {
+            color: #7f8996;
+            font-size: 0.78rem;
+            line-height: 1.5;
+            margin-top: -0.25rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* =========================================================
+        PREDICT PRICE BUTTON
+        ========================================================= */
+
+        div[data-testid="stFormSubmitButton"] > button {
+            width: 100%;
+            min-height: 3.4rem;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(94, 224, 160, 0.45);
+
+            background: linear-gradient(
+                135deg,
+                #198754 0%,
+                #146c43 100%
+            );
+
+            color: #ffffff;
+
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+
+            box-shadow:
+                0 6px 18px rgba(25, 135, 84, 0.20);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        /* Hover */
+        div[data-testid="stFormSubmitButton"] > button:hover {
+            background: linear-gradient(
+                135deg,
+                #20a766 0%,
+                #198754 100%
+            );
+
+            border-color: #5ee0a0;
+
+            box-shadow:
+                0 10px 28px rgba(25, 135, 84, 0.30);
+
+            transform: translateY(-2px);
+        }
+
+        /* Click */
+        div[data-testid="stFormSubmitButton"] > button:active {
+            transform: translateY(0);
+            box-shadow:
+                0 4px 12px rgba(25, 135, 84, 0.20);
         }
 
         .prediction-card {
@@ -428,12 +583,130 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-
 # ---------------------------------------------------------
 # Global Constants
 # ---------------------------------------------------------
 
 MODEL_MAE = 63144.44
+
+# ---------------------------------------------------------
+# Input Validation
+# ---------------------------------------------------------
+
+def validate_inputs(
+    bedrooms,
+    bathrooms,
+    sqft_living,
+    sqft_lot,
+    sqft_above,
+    sqft_basement,
+    sqft_living15,
+    sqft_lot15,
+    yr_built,
+    yr_renovated,
+    zipcode,
+    lat,
+    long_,
+    sale_date,
+):
+    errors = []
+    warnings = []
+
+    current_year = date.today().year
+
+    # -----------------------------------------
+    # Hard validation
+    # -----------------------------------------
+
+    if bedrooms < 1:
+        errors.append("Bedrooms must be at least 1.")
+
+    if bathrooms <= 0:
+        errors.append("Bathrooms must be greater than 0.")
+
+    if sqft_living <= 0:
+        errors.append("Living area must be greater than 0 sqft.")
+
+    if sqft_lot <= 0:
+        errors.append("Lot size must be greater than 0 sqft.")
+
+    if sqft_above < 0:
+        errors.append("Above-ground living area cannot be negative.")
+
+    if sqft_basement < 0:
+        errors.append("Basement area cannot be negative.")
+
+    if yr_built > sale_date.year:
+        errors.append(
+            f"Year built ({yr_built}) cannot be after the sale year "
+            f"({sale_date.year})."
+        )
+
+    if yr_renovated != 0 and yr_renovated < yr_built:
+        errors.append(
+            f"Renovation year ({yr_renovated}) cannot be before "
+            f"the construction year ({yr_built})."
+        )
+
+    if yr_renovated > sale_date.year:
+        errors.append(
+            f"Renovation year ({yr_renovated}) cannot be after "
+            f"the sale year ({sale_date.year})."
+        )
+
+    if not 98001 <= zipcode <= 98199:
+        errors.append("Please enter a valid King County ZIP code.")
+
+    if not 47.0 <= lat <= 48.0:
+        errors.append("Latitude must be between 47.0 and 48.0.")
+
+    if not -123.0 <= long_ <= -121.0:
+        errors.append("Longitude must be between -123.0 and -121.0.")
+
+    # -----------------------------------------
+    # Warnings
+    # -----------------------------------------
+
+    sqft_difference = abs(
+        (sqft_above + sqft_basement) - sqft_living
+    )
+
+    if sqft_difference > 200:
+        warnings.append(
+            f"Above-ground + basement area is "
+            f"{sqft_above + sqft_basement:,} sqft, while living area is "
+            f"{sqft_living:,} sqft. These values differ considerably."
+        )
+
+    if sqft_living > sqft_lot:
+        warnings.append(
+            "Living area is larger than the lot size. "
+            "Please verify these values."
+        )
+
+    if yr_built < 1900:
+        warnings.append(
+            "The construction year is unusually old. "
+            "Please verify the value."
+        )
+
+    if yr_built > current_year - 1:
+        warnings.append(
+            "This is a very recently constructed property. "
+            "Make sure the year is correct."
+        )
+
+    if sqft_living15 <= 0:
+        warnings.append(
+            "Neighboring living-area information is missing or unusual."
+        )
+
+    if sqft_lot15 <= 0:
+        warnings.append(
+            "Neighboring lot-size information is missing or unusual."
+        )
+
+    return errors, warnings
 
 # ---------------------------------------------------------
 # Sidebar
@@ -575,35 +848,53 @@ with st.sidebar:
         """
     )
 
-# ---------------------------------------------------------
-# Hero / Header
-# ---------------------------------------------------------
+# --------------------------------
+# Hero/Header
+# --------------------------------
+
+st.html(
+    """
+    <div class="hero">
+
+        <div class="hero-badge">
+            ✦ MACHINE LEARNING • CATBOOST
+        </div>
+
+        <h1 class="hero-title">
+            🏠 House Price <span>Predictor</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            Estimate a property's market value using a trained machine
+            learning model built on King County housing data.
+            Enter the property's characteristics and let the model
+            calculate the rest.
+        </p>
+
+        <div class="hero-meta">
+            <div class="hero-meta-item">🤖 CatBoost Regression</div>
+            <div class="hero-meta-item">📊 24 Features</div>
+            <div class="hero-meta-item">📈 R² 0.9121</div>
+            <div class="hero-meta-item">💰 MAE $63K</div>
+        </div>
+
+    </div>
+    """
+)
 
 st.markdown(
     """
-    <div class="hero">
-        <div class="hero-icon">🏠</div>
-        <div>
-            <h1>House Price Predictor</h1>
-            <p>
-                Estimate the market value of a King County home
-                using a trained machine learning model.
-            </p>
-        </div>
+    <div class="form-heading">
+        Property Information
+    </div>
+
+    <div class="form-description">
+        Provide the details you know about the property.
+        Engineered features such as house age and price-per-bedroom
+        ratios are calculated automatically by the preprocessing pipeline.
     </div>
     """,
     unsafe_allow_html=True,
-)
-
-# ---------------------------------------------------------
-# Property Details
-# ---------------------------------------------------------
-
-st.markdown("## 🏡 Property Details")
-
-st.caption(
-    "Enter the information you know about the property. "
-    "Derived features are calculated automatically."
 )
 
 with st.form("house_form"):
@@ -614,53 +905,62 @@ with st.form("house_form"):
     # Basic Information
     # -----------------------------------------------------
 
-    st.markdown("### 🛏️ Basic Information")
+    with st.expander("🛏️  Basics", expanded=True):
 
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        bedrooms = st.number_input(
-            "Bedrooms",
-            min_value=0,
-            max_value=15,
-            value=3,
-            step=1,
+        st.markdown(
+            """
+            <div class="section-note">
+                Core characteristics of the property.
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-    with col2:
-        bathrooms = st.number_input(
-            "Bathrooms",
-            min_value=0.0,
-            max_value=10.0,
-            value=2.0,
-            step=0.25,
-            help="Examples: 1.5, 2.25, 3.5",
-        )
+        col1, col2, col3 = st.columns(3)
 
-    with col3:
-        floors = st.selectbox(
-            "Floors",
-            [1.0, 1.5, 2.0, 2.5, 3.0, 3.5],
-            index=1,
-        )
+        with col1:
+            bedrooms = st.number_input(
+                "Bedrooms",
+                min_value=0,
+                max_value=15,
+                value=3,
+                step=1,
+            )
 
-    col1, col2 = st.columns(2)
+        with col2:
+            bathrooms = st.number_input(
+                "Bathrooms",
+                min_value=0.0,
+                max_value=10.0,
+                value=2.0,
+                step=0.25,
+                help="Examples: 1.5, 2.25, 3.5",
+            )
 
-    with col1:
-        waterfront = st.radio(
-            "Waterfront Property",
-            ["No", "Yes"],
-            horizontal=True,
-        )
+        with col3:
+            floors = st.selectbox(
+                "Floors",
+                [1.0, 1.5, 2.0, 2.5, 3.0, 3.5],
+                index=1,
+            )
 
-    with col2:
-        view = st.slider(
-            "View Quality",
-            min_value=0,
-            max_value=4,
-            value=0,
-            help="0 = No view · 4 = Excellent view",
-        )
+        col1, col2 = st.columns(2)
+
+        with col1:
+            waterfront = st.radio(
+                "Waterfront Property",
+                ["No", "Yes"],
+                horizontal=True,
+            )
+
+        with col2:
+            view = st.slider(
+                "View Quality",
+                min_value=0,
+                max_value=4,
+                value=0,
+                help="0 = No view · 4 = Excellent view",
+            )
 
     st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
 
@@ -668,69 +968,87 @@ with st.form("house_form"):
     # Property Size
     # -----------------------------------------------------
 
-    st.markdown("### 📐 Property Size")
+    with st.expander("📐 Property Size", expanded=False):
 
-    col1, col2 = st.columns(2)
-
-    with col1:
-        sqft_living = st.number_input(
-            "Living Area (sqft)",
-            min_value=200,
-            max_value=20000,
-            value=1800,
-            step=50,
-            help="Total interior living area.",
+        st.markdown(
+            """
+            <div class="section-note">
+                Living space, lot size, basement and neighborhood measurements.
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-    with col2:
-        sqft_lot = st.number_input(
-            "Lot Size (sqft)",
-            min_value=200,
-            max_value=500000,
-            value=5000,
-            step=100,
+        col1, col2 = st.columns(2)
+
+        with col1:
+            sqft_living = st.number_input(
+                "Living Area (sqft)",
+                min_value=200,
+                max_value=20000,
+                value=1800,
+                step=50,
+                help="Total interior living area.",
+            )
+
+        with col2:
+            sqft_lot = st.number_input(
+                "Lot Size (sqft)",
+                min_value=200,
+                max_value=500000,
+                value=5000,
+                step=100,
+            )
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            sqft_above = st.number_input(
+                "Above-Ground Area (sqft)",
+                min_value=0,
+                max_value=20000,
+                value=1500,
+                step=50,
+            )
+
+        with col2:
+            sqft_basement = st.number_input(
+                "Basement Area (sqft)",
+                min_value=0,
+                max_value=10000,
+                value=300,
+                step=50,
+            )
+
+        st.caption(
+            "💡 Living area should generally be close to "
+            "above-ground area + basement area."
         )
 
-    col1, col2 = st.columns(2)
+        col1, col2 = st.columns(2)
 
-    with col1:
-        sqft_above = st.number_input(
-            "Above-Ground Area (sqft)",
-            min_value=0,
-            max_value=20000,
-            value=1500,
-            step=50,
-        )
+        with col1:
+            sqft_living15 = st.number_input(
+                "Avg. Neighbor Living Area (sqft)",
+                min_value=200,
+                max_value=20000,
+                value=1800,
+                step=50,
+                help="Average living area of the 15 nearest houses.",
+            )
 
-    with col2:
-        sqft_basement = st.number_input(
-            "Basement Area (sqft)",
-            min_value=0,
-            max_value=10000,
-            value=300,
-            step=50,
-        )
+        with col2:
+            sqft_lot15 = st.number_input(
+                "Avg. Neighbor Lot Size (sqft)",
+                min_value=200,
+                max_value=500000,
+                value=5000,
+                step=100,
+                help="Average lot size of the 15 nearest houses.",
+            )
 
-    col1, col2 = st.columns(2)
-
-    with col1:
-        sqft_living15 = st.number_input(
-            "Avg. Neighbor Living Area (sqft)",
-            min_value=200,
-            max_value=20000,
-            value=1800,
-            step=50,
-            help="Average living area of the 15 nearest houses.",
-        )
-
-    with col2:
-        sqft_lot15 = st.number_input(
-            "Avg. Neighbor Lot Size (sqft)",
-            min_value=200,
-            max_value=500000,
-            value=5000,
-            step=100,
-            help="Average lot size of the 15 nearest houses.",
+        st.caption(
+            "📐 Accurate measurements can significantly improve the estimate."
         )
 
     st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
@@ -739,27 +1057,36 @@ with st.form("house_form"):
     # Quality & Condition
     # -----------------------------------------------------
 
-    st.markdown("### ⭐ Quality & Condition")
+    with st.expander("⭐  Quality", expanded=False):
 
-    col1, col2 = st.columns(2)
-
-    with col1:
-        condition = st.slider(
-            "Overall Condition",
-            min_value=1,
-            max_value=5,
-            value=3,
-            help="1 = Poor · 5 = Excellent",
+        st.markdown(
+            """
+            <div class="section-note">
+                Property condition and construction/design quality.
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-    with col2:
-        grade = st.slider(
-            "Construction & Design Grade",
-            min_value=1,
-            max_value=13,
-            value=7,
-            help="1–3 = Low quality · 7 = Average · 11–13 = High-end",
-        )
+        col1, col2 = st.columns(2)
+
+        with col1:
+            condition = st.slider(
+                "Overall Condition",
+                min_value=1,
+                max_value=5,
+                value=3,
+                help="1 = Poor · 5 = Excellent",
+            )
+
+        with col2:
+            grade = st.slider(
+                "Construction & Design Grade",
+                min_value=1,
+                max_value=13,
+                value=7,
+                help="1–3 = Low quality · 7 = Average · 11–13 = High-end",
+            )
 
     st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
 
@@ -767,72 +1094,85 @@ with st.form("house_form"):
     # Location & Sale Information
     # -----------------------------------------------------
 
-    st.markdown("### 📍 Location & Sale Information")
+    with st.expander("📍  Location & Sale Date", expanded=False):
 
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        zipcode = st.number_input(
-            "Zip Code",
-            min_value=98001,
-            max_value=98199,
-            value=98103,
-            step=1,
+        st.markdown(
+            """
+            <div class="section-note">
+                Location and timing have a significant influence on the prediction.
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
-    with col2:
-        lat = st.number_input(
-            "Latitude",
-            min_value=47.0,
-            max_value=48.0,
-            value=47.5480,
-            step=0.0001,
-            format="%.4f",
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            zipcode = st.number_input(
+                "Zip Code",
+                min_value=98001,
+                max_value=98199,
+                value=98103,
+                step=1,
+            )
+
+        with col2:
+            lat = st.number_input(
+                "Latitude",
+                min_value=47.0,
+                max_value=48.0,
+                value=47.5480,
+                step=0.0001,
+                format="%.4f",
+            )
+
+        with col3:
+            long_ = st.number_input(
+                "Longitude",
+                min_value=-123.0,
+                max_value=-121.0,
+                value=-122.2,
+                step=0.0001,
+                format="%.4f",
+            )
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            yr_built = st.number_input(
+                "Year Built",
+                min_value=1900,
+                max_value=date.today().year,
+                value=1990,
+                step=1,
+            )
+
+        with col2:
+            yr_renovated = st.number_input(
+                "Year Renovated",
+                min_value=0,
+                max_value=date.today().year,
+                value=0,
+                step=1,
+                help="Enter 0 if the property has never been renovated.",
+            )
+
+        sale_date = st.date_input(
+            "Sale Date",
+            value=date.today(),
+            help="The model uses the year of sale as a feature.",
         )
 
-    with col3:
-        long_ = st.number_input(
-            "Longitude",
-            min_value=-123.0,
-            max_value=-121.0,
-            value=-122.2,
-            step=0.0001,
-            format="%.4f",
+        st.caption(
+            "📍 Location features are especially important to the model."
         )
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        yr_built = st.number_input(
-            "Year Built",
-            min_value=1900,
-            max_value=date.today().year,
-            value=1990,
-            step=1,
-        )
-
-    with col2:
-        yr_renovated = st.number_input(
-            "Year Renovated",
-            min_value=0,
-            max_value=date.today().year,
-            value=0,
-            step=1,
-            help="Enter 0 if the property has never been renovated.",
-        )
-
-    sale_date = st.date_input(
-        "Sale Date",
-        value=date.today(),
-        help="The model uses the year of sale as a feature.",
-    )
 
     st.markdown("<div class='section-spacing'></div>", unsafe_allow_html=True)
     st.markdown("---")
 
     submitted = st.form_submit_button(
-        "🔮 Predict House Price",
-        use_container_width=True,
+        "🔮  Predict House Price",
+        use_container_width=True
     )
 
 # ---------------------------------------------------------
@@ -840,6 +1180,46 @@ with st.form("house_form"):
 # ---------------------------------------------------------
 
 if submitted:
+
+    errors, warnings = validate_inputs(
+        bedrooms=bedrooms,
+        bathrooms=bathrooms,
+        sqft_living=sqft_living,
+        sqft_lot=sqft_lot,
+        sqft_above=sqft_above,
+        sqft_basement=sqft_basement,
+        sqft_living15=sqft_living15,
+        sqft_lot15=sqft_lot15,
+        yr_built=yr_built,
+        yr_renovated=yr_renovated,
+        zipcode=zipcode,
+        lat=lat,
+        long_=long_,
+        sale_date=sale_date,
+    )
+
+    # -----------------------------------------
+    # Show validation errors
+    # -----------------------------------------
+
+    if errors:
+        st.error("Please correct the following before predicting:")
+
+        for error in errors:
+            st.markdown(f"- ❌ {error}")
+
+        st.stop()
+
+    # -----------------------------------------
+    # Show warnings
+    # -----------------------------------------
+
+    for warning in warnings:
+        st.warning(f"⚠️ {warning}")
+
+    # -----------------------------------------
+    # Prepare prediction input
+    # -----------------------------------------
 
     raw_input = {
         "id": 0,
