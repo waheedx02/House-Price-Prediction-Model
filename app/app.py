@@ -28,6 +28,164 @@ from src.predict import predict_price
 st.markdown(
     """
     <style>
+        /* ================================
+        SIDEBAR
+        ================================ */
+
+        [data-testid="stSidebar"] {
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        [data-testid="stSidebar"] > div:first-child {
+            padding-top: 2rem;
+        }
+
+        /* Sidebar brand */
+
+        .sidebar-brand {
+            padding: 0.2rem 0.2rem 1.5rem 0.2rem;
+        }
+
+        .sidebar-brand-title {
+            font-size: 1.25rem;
+            font-weight: 750;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .sidebar-brand-subtitle {
+            margin-top: 0.2rem;
+            color: rgba(255, 255, 255, 0.48);
+            font-size: 0.78rem;
+        }
+
+        /* Model status */
+
+        .model-status {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.7rem 0.85rem;
+            margin-bottom: 1.25rem;
+            border-radius: 10px;
+            background: rgba(25, 135, 84, 0.10);
+            border: 1px solid rgba(25, 135, 84, 0.22);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #39d98a;
+            box-shadow: 0 0 10px rgba(57, 217, 138, 0.65);
+        }
+
+        .status-text {
+            color: #9ee7bf;
+            font-size: 0.78rem;
+            font-weight: 650;
+            letter-spacing: 0.04em;
+        }
+
+        /* Section headings */
+
+        .sidebar-section-title {
+            margin: 1.25rem 0 0.7rem 0;
+            color: rgba(255, 255, 255, 0.52);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+        }
+
+        /* Model information card */
+
+        .model-info-card {
+            padding: 0.9rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .model-name {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 650;
+            margin-bottom: 0.8rem;
+        }
+
+        .model-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.55rem;
+        }
+
+        .model-metric {
+            padding: 0.65rem;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .metric-label {
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 0.68rem;
+        }
+
+        .metric-value {
+            margin-top: 0.15rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        /* About section */
+
+        .sidebar-description {
+            color: rgba(255, 255, 255, 0.58);
+            font-size: 0.78rem;
+            line-height: 1.6;
+        }
+
+        /* Workflow */
+
+        .workflow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .workflow-number {
+            flex-shrink: 0;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 7px;
+            background: rgba(25, 135, 84, 0.12);
+            border: 1px solid rgba(25, 135, 84, 0.20);
+            color: #75d6a5;
+            font-size: 0.68rem;
+            font-weight: 700;
+        }
+
+        .workflow-content {
+            padding-top: 0.1rem;
+        }
+
+        .workflow-title {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.76rem;
+            font-weight: 650;
+        }
+
+        .workflow-description {
+            margin-top: 0.1rem;
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 0.7rem;
+            line-height: 1.4;
+        }
         .hero {
             padding: 1.8rem 2rem;
             border-radius: 18px;
@@ -59,6 +217,7 @@ st.markdown(
             font-size: 1.05rem;
             opacity: 0.75;
         }
+
         .section-spacing {
             margin-top: 2rem;
             margin-bottom: 1rem;
@@ -70,50 +229,20 @@ st.markdown(
             border: none;
             border-top: 1px solid rgba(128, 128, 128, 0.25);
         }
-        .predict-button {
-            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            font-size: 1.05rem;
-            font-weight: 600;
-            width: 100%;
-            cursor: pointer;
-        }
 
-        .prediction-card {
-            padding: 2rem;
-            border-radius: 18px;
-            background: rgba(128, 128, 128, 0.08);
-            border: 1px solid rgba(128, 128, 128, 0.2);
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-
-        .prediction-label {
-            font-size: 1rem;
-            opacity: 0.7;
-            margin-bottom: 0.4rem;
-        }
-
-        .prediction-price {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .prediction-range {
-            font-size: 0.95rem;
-            opacity: 0.7;
-        }
-
-        .result-section {
-            margin-top: 2rem;
-        }
         div.stButton > button,
         div[data-testid="stFormSubmitButton"] > button {
-            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            background:
+                radial-gradient(
+                    circle at 50% -20%,
+                    rgba(25, 135, 84, 0.22),
+                    transparent 55%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(25, 135, 84, 0.13),
+                    rgba(20, 25, 32, 0.95)
+                );
             color: white;
             border: none;
             border-radius: 10px;
@@ -126,7 +255,162 @@ st.markdown(
         div.stButton > button:hover,
         div[data-testid="stFormSubmitButton"] > button:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+        }
+
+        .prediction-card {
+            position: relative;
+            overflow: hidden;
+            margin: 1.2rem 0 0.8rem 0;
+            padding: 2rem 2rem 1.7rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background:
+                radial-gradient(
+                    circle at 50% -20%,
+                    rgba(25, 135, 84, 0.22),
+                    transparent 55%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(25, 135, 84, 0.13),
+                    rgba(20, 25, 32, 0.95)
+                );
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 16px 42px rgba(0, 0, 0, 0.32),
+                0 0 30px rgba(25, 135, 84, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .prediction-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.8rem;
+            margin-bottom: 0.9rem;
+            border-radius: 999px;
+            background: rgba(25, 135, 84, 0.14);
+            border: 1px solid rgba(25, 135, 84, 0.28);
+            color: #75d6a5;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .prediction-label {
+            color: rgba(255, 255, 255, 0.68);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.35rem;
+        }
+
+        .prediction-price {
+            color: #ffffff;
+            font-size: 3.4rem;
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 2px 20px rgba(25, 135, 84, 0.18);
+        }
+
+        .prediction-range-label {
+            color: rgba(255, 255, 255, 0.52);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            margin-bottom: 0.65rem;
+        }
+
+        .prediction-range-values {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 0.95rem;
+        }
+
+        .prediction-range-values .range-value {
+            font-weight: 700;
+        }
+
+        .prediction-range-values .range-separator {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .prediction-range-bar {
+            position: relative;
+            height: 7px;
+            margin: 1rem auto 0.45rem auto;
+            max-width: 500px;
+            border-radius: 999px;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.10),
+                rgba(25, 135, 84, 0.55),
+                rgba(255, 255, 255, 0.10)
+            );
+        }
+
+        .prediction-range-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15px;
+            height: 15px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid #198754;
+            box-shadow:
+                0 0 0 4px rgba(25, 135, 84, 0.18),
+                0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .prediction-range {
+            margin-top: 0.2rem;
+            color: rgba(255, 255, 255, 0.58);
+            font-size: 0.78rem;
+        }
+
+        .prediction-range strong {
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .prediction-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .prediction-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .prediction-meta-label {
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 0.72rem;
+        }
+
+        .prediction-meta-value {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.85rem;
+            font-weight: 600;
         }
     </style>
     """,
@@ -156,62 +440,140 @@ MODEL_MAE = 63144.44
 # ---------------------------------------------------------
 
 with st.sidebar:
-    st.title("🏠 House Price Predictor")
 
-    st.caption(
-        "Machine learning application for predicting "
-        "King County house prices."
-    )
+    # --------------------------------
+    # Brand
+    # --------------------------------
 
-    st.divider()
-
-    # Model information
-    st.subheader("🤖 Model")
-
-    st.markdown(
+    st.html(
         """
-        **CatBoost Regressor**
-
-        A gradient boosting model designed to capture
-        nonlinear relationships between property
-        characteristics and sale prices.
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-title">
+                🏠 House Price Predictor
+            </div>
+            <div class="sidebar-brand-subtitle">
+                Machine learning price estimation
+            </div>
+        </div>
         """
     )
 
-    st.divider()
+    # --------------------------------
+    # Model status
+    # --------------------------------
 
-    # Model performance
-    st.subheader("📊 Model Performance")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.metric("R²", "0.9121")
-        st.metric("MAE", "$63.14K")
-
-    with col2:
-        st.metric("RMSE", "$114.8K")
-        st.metric("CV RMSE", "$117.1K")
-
-    st.caption(
-        "Evaluation performed on the held-out test set."
-    )
-
-    st.divider()
-
-    # Technical information
-    st.subheader("🔧 Tech Stack")
-
-    st.markdown(
+    st.html(
         """
-        **Python** · **Pandas** · **NumPy**  
-        **Scikit-learn** · **CatBoost** · **Streamlit**
+        <div class="model-status">
+            <div class="status-dot"></div>
+            <div class="status-text">MODEL READY</div>
+        </div>
         """
     )
 
-    st.divider()
+    # --------------------------------
+    # Model
+    # --------------------------------
 
-    st.caption("House Price Prediction • Machine Learning Project")
+    st.html(
+        """
+        <div class="sidebar-section-title">
+            Model
+        </div>
+
+        <div class="model-info-card">
+
+            <div class="model-name">
+                CatBoost Regressor
+            </div>
+
+            <div class="model-metrics">
+
+                <div class="model-metric">
+                    <div class="metric-label">R²</div>
+                    <div class="metric-value">0.9121</div>
+                </div>
+
+                <div class="model-metric">
+                    <div class="metric-label">MAE</div>
+                    <div class="metric-value">$63,144</div>
+                </div>
+
+                <div class="model-metric">
+                    <div class="metric-label">RMSE</div>
+                    <div class="metric-value">$114,844</div>
+                </div>
+
+                <div class="model-metric">
+                    <div class="metric-label">Features</div>
+                    <div class="metric-value">24</div>
+                </div>
+
+            </div>
+
+        </div>
+        """
+    )
+
+    # --------------------------------
+    # About
+    # --------------------------------
+
+    st.html(
+        """
+        <div class="sidebar-section-title">
+            About this model
+        </div>
+
+        <div class="sidebar-description">
+            This model estimates King County home sale prices
+            using property characteristics, quality indicators,
+            and geographic information.
+        </div>
+        """
+    )
+
+    # --------------------------------
+    # Workflow
+    # --------------------------------
+
+    st.html(
+        """
+        <div class="sidebar-section-title">
+            How it works
+        </div>
+
+        <div class="workflow-step">
+            <div class="workflow-number">01</div>
+            <div class="workflow-content">
+                <div class="workflow-title">Enter property details</div>
+                <div class="workflow-description">
+                    Provide the home's characteristics and location.
+                </div>
+            </div>
+        </div>
+
+        <div class="workflow-step">
+            <div class="workflow-number">02</div>
+            <div class="workflow-content">
+                <div class="workflow-title">Engineer features</div>
+                <div class="workflow-description">
+                    Derived features are calculated automatically.
+                </div>
+            </div>
+        </div>
+
+        <div class="workflow-step">
+            <div class="workflow-number">03</div>
+            <div class="workflow-content">
+                <div class="workflow-title">Generate prediction</div>
+                <div class="workflow-description">
+                    CatBoost estimates the property's sale price.
+                </div>
+            </div>
+        </div>
+        """
+    )
 
 # ---------------------------------------------------------
 # Hero / Header
@@ -536,12 +898,74 @@ if submitted:
         st.html(
             f"""
             <div class="prediction-card">
-                <div class="prediction-label">Estimated Sale Price</div>
-                <div class="prediction-price">${prediction:,.0f}</div>
-                <div class="prediction-range">
-                    Typical model range:
-                    <strong>${lower_bound:,.0f} – ${upper_bound:,.0f}</strong>
+
+                <div class="prediction-badge">
+                    ✓ Model Prediction
                 </div>
+
+                <div class="prediction-label">
+                    Estimated Sale Price
+                </div>
+
+                <div class="prediction-price">
+                    ${prediction:,.0f}
+                </div>
+
+                <div class="prediction-range-label">
+                    Typical prediction range
+                </div>
+
+                <div class="prediction-range-values">
+                    <span class="range-value">
+                        ${lower_bound:,.0f}
+                    </span>
+
+                    <span class="range-separator">—</span>
+
+                    <span class="range-value">
+                        ${upper_bound:,.0f}
+                    </span>
+                </div>
+
+                <div class="prediction-range-bar">
+                    <div class="prediction-range-marker"></div>
+                </div>
+
+                <div class="prediction-range">
+                    Based on the model's validation error
+                </div>
+
+                <div class="prediction-meta">
+
+                    <div class="prediction-meta-item">
+                        <span class="prediction-meta-label">
+                            Model
+                        </span>
+                        <span class="prediction-meta-value">
+                            CatBoost
+                        </span>
+                    </div>
+
+                    <div class="prediction-meta-item">
+                        <span class="prediction-meta-label">
+                            Validation MAE
+                        </span>
+                        <span class="prediction-meta-value">
+                            $63,144
+                        </span>
+                    </div>
+
+                    <div class="prediction-meta-item">
+                        <span class="prediction-meta-label">
+                            R²
+                        </span>
+                        <span class="prediction-meta-value">
+                            0.9121
+                        </span>
+                    </div>
+
+                </div>
+
             </div>
             """
         )
